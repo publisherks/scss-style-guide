@@ -187,6 +187,9 @@ i {
     margin과 padding 생성을 위한 map.
     key는 class이름 생성, value는 상세 속성 정의.
 */
+/**
+    z-index 생성을 위한 map.
+*/
 :root {
   font-size: 12px;
 }
@@ -1387,6 +1390,7 @@ i {
   --table-th-color: #342f3a;
   --border-color: #484251;
   --box-shadow: #000000;
+  --modal-border: #2f2b35;
   --RGB-main-color: 73, 113, 255;
   --RGB-main-color-active: 47, 67, 141;
   --RGB-sub-btn1-color: 115, 61, 236;
@@ -1410,6 +1414,7 @@ i {
   --RGB-table-th-color: 52, 47, 58;
   --RGB-border-color: 72, 66, 81;
   --RGB-box-shadow: 0, 0, 0;
+  --RGB-modal-border: 47, 43, 53;
 }
 
 html,
@@ -1435,7 +1440,7 @@ body,
   width: 12px;
 }
 
-.fontawesome, #nav > ul > li.depth1 > a:after, .paging-container .paging-box a.prev:after, .paging-container .paging-box a.next:after, .input-box .del:after, .input-box.search .icon:after, .input-box .select-input .icon:after {
+.fontawesome, #nav > ul > li.depth1 > a:after, .paging-container .paging-box a.prev:after, .paging-container .paging-box a.next:after, .input-box .del:after, .input-box.search .icon:after, .input-box .select-input .icon:after, .input-box .datepicker-input .icon:after, .check-box label i:after {
   font-family: 'Font Awesome 5 Pro';
   font-weight: 900;
 }
@@ -1452,6 +1457,12 @@ body,
 .contents {
   height: calc(100% - 100px);
   overflow-y: auto;
+}
+
+.required-icon {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--main-color);
 }
 
 #sideNav {
@@ -1891,6 +1902,13 @@ body,
   color: var(--text-color1);
 }
 
+.input-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color3);
+}
+
 [class*=btn-] {
   outline: none;
   border: none;
@@ -1995,6 +2013,18 @@ body,
   background-color: var(--red-color-active);
 }
 
+.btnbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.btnbox.align-right {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
 .tb-container {
   width: 100%;
   background-color: var(--content-bg-color);
@@ -2020,7 +2050,7 @@ body,
 .tb-container table td {
   font-size: 1rem;
   font-weight: 400;
-  color: val(--text-color1);
+  color: var(--text-color1);
   height: 48px;
   border: 1px solid var(--table-th-color);
   border-top: none;
@@ -2038,6 +2068,23 @@ body,
 
 .tb-container table tbody tr td:last-child {
   border-right: none;
+}
+
+.tb-container.left-th > table > tbody > tr > th {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tb-container.left-th > table > tbody > tr > td {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-right: 24px;
+  padding-left: 24px;
+  border-bottom: 1px solid var(--table-th-color);
+}
+
+.tb-container.left-th > table > tbody > tr:last-child > th,
+.tb-container.left-th > table > tbody > tr:last-child > td {
+  border-bottom: none;
 }
 
 .paging-container {
@@ -2277,7 +2324,46 @@ body,
   pointer-events: auto;
 }
 
-.input-box .select-items {
+.input-box .datepicker-input {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.input-box .datepicker-input > input {
+  padding-left: 17px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.input-box .datepicker-input .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  outline: none;
+  -webkit-transition: background-color .25s;
+  transition: background-color .25s;
+}
+
+.input-box .datepicker-input .icon:after {
+  content: '\f073';
+  font-size: 1.33333rem;
+  color: var(--main-color);
+}
+
+.select-items {
   position: absolute;
   top: calc(100% + 13px);
   right: 0;
@@ -2286,6 +2372,7 @@ body,
   height: 0;
   overflow: hidden;
   opacity: 0;
+  z-index: 90;
   pointer-events: none;
   -webkit-animation-duration: .4s;
           animation-duration: .4s;
@@ -2293,7 +2380,7 @@ body,
           animation-fill-mode: both;
 }
 
-.input-box .select-items::before {
+.select-items::before {
   content: '';
   position: absolute;
   top: 0px;
@@ -2305,7 +2392,7 @@ body,
   border-left: 7px solid transparent;
 }
 
-.input-box .select-items:after {
+.select-items:after {
   content: '';
   position: absolute;
   top: 1px;
@@ -2317,7 +2404,7 @@ body,
   border-left: 6px solid transparent;
 }
 
-.input-box .select-items > ul {
+.select-items > ul {
   max-height: 159px;
   background-color: var(--content-bg-color);
   border: 1px solid var(--border-color);
@@ -2327,7 +2414,7 @@ body,
           box-shadow: 2px 2.2px 15px 0 var(--box-shadow);
 }
 
-.input-box .select-items > ul li > a {
+.select-items > ul li > a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2343,9 +2430,213 @@ body,
   color: var(--text-color1);
 }
 
-.input-box .select-items > ul li > a:hover, .input-box .select-items > ul li > a:focus {
+.select-items > ul li > a:hover, .select-items > ul li > a:focus {
   outline: none;
   background-color: var(--main-color);
+}
+
+.wim-datepicker {
+  position: absolute;
+  top: auto;
+  right: auto;
+  left: 0;
+  padding-top: 8px;
+  margin-top: 8px;
+  width: auto;
+  min-width: 494px;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 100;
+  pointer-events: none;
+  -webkit-animation-duration: .4s;
+          animation-duration: .4s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.wim-datepicker::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  display: block;
+  border-top: none;
+  border-right: 7px solid transparent;
+  border-bottom: 9px solid var(--border-color);
+  border-left: 7px solid transparent;
+}
+
+.wim-datepicker:after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 11px;
+  display: block;
+  border-top: none;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid var(--content-bg-color);
+  border-left: 6px solid transparent;
+}
+
+.wim-datepicker.show {
+  height: auto;
+  -webkit-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+  pointer-events: auto;
+}
+
+.wim-datepicker.single {
+  min-width: auto;
+}
+
+.wim-datepicker .calendars {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--content-bg-color);
+}
+
+.wim-datepicker .calendars .calendar {
+  max-width: 242px;
+  width: 242px;
+}
+
+.wim-datepicker .calendars .calendar.left {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 9px;
+}
+
+.wim-datepicker .calendars .calendar.left .calendar-table {
+  padding-right: 9px;
+}
+
+.wim-datepicker .calendars .calendar.right {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-right: 9px;
+}
+
+.wim-datepicker .calendars .calendar.right .calendar-table {
+  padding-left: 9px;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table {
+  width: 100%;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table > thead th.prev i,
+.wim-datepicker .calendars .calendar > .calendar-table > table > thead th.next i {
+  color: var(--main-color);
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table > thead .input-box {
+  max-width: 50%;
+  height: 32px;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table > thead .input-box > .select-input > input {
+  border: none;
+  font-size: 1rem;
+  color: var(--main-color);
+  padding-left: 10px;
+  padding-right: 32px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table > thead .input-box > .select-input > .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table > thead .input-box .select-items > ul li > a {
+  min-height: 32px;
+  font-size: 1rem;
+  padding: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table > tbody > th {
+  font-weight: 700;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table th,
+.wim-datepicker .calendars .calendar > .calendar-table > table td {
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 32px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 1.16667rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table td.prev-month, .wim-datepicker .calendars .calendar > .calendar-table > table td.next-month {
+  color: var(--gray-color);
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table td.start-date, .wim-datepicker .calendars .calendar > .calendar-table > table td.end-date {
+  font-weight: 700;
+  background-color: var(--main-color);
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table td.start-date {
+  border-radius: 3px 0 0 3px;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table td.end-date {
+  border-radius: 0 3px 3px 0;
+}
+
+.wim-datepicker .calendars .calendar > .calendar-table > table td.in-range {
+  font-weight: 700;
+  background-color: rgba(var(--RGB-main-color), 0.6);
+  border-radius: 0;
+}
+
+.text-area {
+  width: 100%;
+  max-width: 280px;
+  height: 80px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.text-area textarea {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-color1);
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--content-bg-color);
+  border: 1px solid var(--border-color);
+  outline: none;
+  padding-left: 17px;
+  padding-right: 34px;
+  resize: none;
+}
+
+.text-area textarea:focus {
+  border-color: var(--main-color);
+}
+
+.text-area textarea:placeholder {
+  color: var(--gray-color);
+}
+
+.text-area.pull {
+  max-width: 100%;
 }
 
 @-webkit-keyframes fadeInUp {
@@ -2394,4 +2685,241 @@ body,
     -webkit-transform: translate3d(0, 10px, 0);
             transform: translate3d(0, 10px, 0);
   }
+}
+
+.check-box {
+  display: inline-block;
+}
+
+.check-box label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.16667rem;
+  font-weight: 300;
+  color: var(--text-color1);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.check-box label input[type=checkbox] {
+  display: none;
+}
+
+.check-box label i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--border-color);
+  background-color: var(--content-bg-color);
+  margin-right: 8px;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+}
+
+.check-box label i:after {
+  content: '\f00c';
+  font-size: 0.83333rem;
+  color: var(--content-bg-color);
+  -webkit-transition: color .25s;
+  transition: color .25s;
+}
+
+.check-box label input[type=checkbox]:checked + i {
+  border: 1px solid var(--main-color);
+  background-color: var(--main-color);
+}
+
+.check-box label input[type=checkbox]:checked + i:after {
+  color: var(--text-color1);
+}
+
+.check-box.disable > label {
+  color: var(--text-disable-color);
+}
+
+.check-box.disable > label i {
+  border: 1px solid rgba(var(--RGB-border-color), 0.5);
+  background-color: rgba(var(--RGB-content-bg-color), 0.5);
+}
+
+.check-box.required > label {
+  color: var(--red-color);
+}
+
+.check-box.required > label i {
+  border: 1px solid var(--red-color);
+}
+
+.radio-box {
+  display: inline-block;
+}
+
+.radio-box label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.16667rem;
+  font-weight: 300;
+  color: var(--text-color1);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.radio-box label input[type=radio] {
+  display: none;
+}
+
+.radio-box label i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--border-color);
+  background-color: var(--content-bg-color);
+  margin-right: 8px;
+  border-radius: 50%;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+}
+
+.radio-box label i:after {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--content-bg-color);
+  -webkit-transition: background-color .25s;
+  transition: background-color .25s;
+}
+
+.radio-box label input[type=radio]:checked + i {
+  border: 1px solid var(--main-color);
+}
+
+.radio-box label input[type=radio]:checked + i:after {
+  background-color: var(--main-color);
+}
+
+.radio-box.disable > label {
+  color: var(--text-disable-color);
+}
+
+.radio-box.disable > label i {
+  border: 1px solid rgba(var(--RGB-border-color), 0.5);
+  background-color: rgba(var(--RGB-content-bg-color), 0.5);
+}
+
+.radio-box.required > label {
+  color: var(--red-color);
+}
+
+.radio-box.required > label i {
+  border: 1px solid var(--red-color);
+}
+
+.modal.modal-overlay {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--RGB-bg-color), 0.8);
+  z-index: 1000;
+}
+
+.modal-contanier {
+  width: auto;
+  min-width: 500px;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid var(--modal-border);
+  background-color: var(--content-bg-color);
+  -webkit-box-shadow: 3.3px 3.7px 30px 0 rgba(var(--RGB-box-shadow), 0.9);
+          box-shadow: 3.3px 3.7px 30px 0 rgba(var(--RGB-box-shadow), 0.9);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.modal-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 32px;
+}
+
+.modal-top .close-btn {
+  margin-left: auto;
+  color: var(--gray-color);
+}
+
+.modal-top .close-btn > i {
+  font-size: 2.13333rem;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  -webkit-transition: opacity .4s;
+  transition: opacity .4s;
+}
+
+.modal-enter-active .modal-contanier,
+.modal-leave-active .modal-contanier {
+  -webkit-transition: opacity .4s, -webkit-transform .4s;
+  transition: opacity .4s, -webkit-transform .4s;
+  transition: opacity .4s, transform .4s;
+  transition: opacity .4s, transform .4s, -webkit-transform .4s;
+}
+
+.modal-leave-active {
+  -webkit-transition: opacity .6s ease .2s;
+  transition: opacity .6s ease .2s;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .modal-contanier,
+.modal-leave-to .modal-contanier {
+  opacity: 0;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }

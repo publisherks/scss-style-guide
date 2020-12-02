@@ -9,6 +9,9 @@
         <h3 class="sub-title">Sub Title & Modal Popup Title</h3>
     </div>
     <div class="title-box">
+        <p class="input-title">Input Title</p>
+    </div>
+    <div class="title-box">
         <h2 class="main-title">-Title Box</h2>
     </div>
     <div class="title-box">
@@ -573,6 +576,7 @@
     <div class="title-box">
         <h2 class="main-title">-Input & Check, Radio Button</h2>
     </div>
+
     <div class="container mb-30">
         <div class="row-cols-3">
             <div class="col">
@@ -955,14 +959,14 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div class="mt-10"></div>
 
-                    <div class="mt-10"></div>
-
-                    <div class="text-area">
-                        <textarea
-                            name=""
-                            id=""></textarea>
-                    </div>
+                <div class="text-area">
+                    <textarea
+                        name=""
+                        id=""></textarea>
                 </div>
             </div>
             <div class="col">
@@ -1037,8 +1041,43 @@
             </div>
         </div>
     </div>
+
+    <div class="title-box">
+        <h2 class="main-title">-Modal Popup</h2>
+    </div>
+
+    <button
+        type="button"
+        class="btn btn-sub2 ml-15"
+        v-on:click="openModal">
+        <i class="fal fa-search"></i>검색
+    </button>
+
+    <transition
+        name="modal"
+        appear>
+        <modal
+            v-on:close="closeModal"
+            v-if="modal"
+            v-bind:title="`주문검색`">
+            <div class="btnbox align-right mt-30">
+                <button
+                    type="button"
+                    class="btn btn-cancel">
+                    <i
+                        class="fal fa-times"></i>취소
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-main ml-15">
+                    <i class="fal fa-check"></i>확인
+                </button>
+            </div>
+        </modal>
+    </transition>
 </template>
 <script>
+    import Modal from "./Modal.vue";
     export default {
         name: "Styleguide",
         data: function() {
@@ -1048,10 +1087,21 @@
                 monthOpen  : false,
                 yearOpen   : false,
                 datepicker : false,
+                modal: false,
             };
         },
+        components: {
+            Modal
+        },
         methods: {
-            
+            openModal() {
+                this.modal = true;
+            },
+
+            closeModal() {
+                this.modal = false;
+                console.log(this.modal);
+            }
         },
     };
 </script>

@@ -47,7 +47,24 @@
         }
     }
 
-    &.left-th>table>tbody>tr>td {
-        @include mar-pad(pt 14, pb 14, pr 24, pl 24);
+    &.left-th>table>tbody {
+        >tr {
+            >th {
+                @include border('b', 1px solid var(--border-color));
+            }
+
+            >td {
+                @include mar-pad(pt 14, pb 14, pr 24, pl 24);
+                @include border('b', 1px solid var(--table-th-color));
+            }
+
+            &:last-child {
+
+                >th,
+                >td {
+                    border-bottom: none;
+                }
+            }
+        }
     }
 }
