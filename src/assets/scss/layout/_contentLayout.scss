@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+#container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    @include mar-pad(pl 30);
+
+    .top,
+    .contents {
+        @include mar-pad(pr 30);
+    }
+}

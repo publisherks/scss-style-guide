@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+[class*=btn-] {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+[class*=btn-] i {
+    @include mar-pad(mr 6);
+}
+
+.btn {
+    height: 40px;
+    font-size: rem(15px);
+    font-weight: 700;
+    @include mar-pad(pl 20, pr 20);
+    @include box-shadow(2px 2.2px 5px 0 var(--btn-shadow));
+    transition: color .25s, background-color .25s;
+
+    &:active {
+        color: rgba(var(--RGB_text-color1), .7);
+        @include box-shadow(.7px .7px 2px 0 var(--btn-shadow));
+    }
+
+    &:disabled {
+        color: rgba(var(--RGB_text-color1), .3);
+        background-color: var(--btn-disable-color);
+        box-shadow: none;
+    }
+}
+
+.btn-tb {
+    height: 32px;
+    font-size: rem(12px);
+    font-weight: 700;
+    @include mar-pad(pl 15, pr 15);
+    border-radius: 4px;
+    transition: color .25s, background-color .25s;
+
+    i {
+        @include mar-pad(mr 4);
+    }
+}
+
+.btn-main {
+    color: var(--text-color1);
+    background-color: var(--main-color);
+    &:active {
+        background-color: var(--main-color-active);
+    }
+}
+
+.btn-sub1 {
+    color: var(--text-color1);
+    background-color: var(--sub-btn1-color);
+    &:active {
+        background-color: var(--sub-btn1-color-active);
+    }
+}
+
+.btn-sub2 {
+    color: var(--text-color1);
+    background-color: var(--sub-btn2-color);
+    &:active {
+        background-color: var(--sub-btn2-color-active);
+    }
+}
+
+.btn-sub3 {
+    color: var(--text-color1);
+    background-color: var(--sub-btn3-color);
+    &:active {
+        background-color: var(--sub-btn3-color-active);
+    }
+}
+
+.btn-cancel {
+    color: var(--text-color1);
+    background-color: var(--gray-color);
+    &:active {
+        background-color: var(--gray-color-active);
+    }
+}
+
+.btn-delete {
+    color: var(--text-color1);
+    background-color: var(--red-color);
+    &:active {
+        background-color: var(--red-color-active);
+    }
+}
+
+.btnbox {
+    display:flex;
+
+    &.align-right {
+        justify-content: flex-end;
+    }
+}

@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+:root {
+    font-size: $baseFontSize;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@include generate($nameMap, $position, $size);
+
+.block {display:block;}
+.in-block {display:inline-block;}
+.flex {display:flex;}
+.flex-wrap {display:flex;flex-wrap:wrap;}
+.clear {display:block;clear:both;overflow:hidden;}
+.align-l {text-align:left;}
+.align-r {text-align:right;}
+.align-c {text-align:center;}
+.fl-l {float:left;}
+.fl-r {float:right;}
+.fl-n {float:none;}
+.w-100 {width:100%;}
+.h-100 {height:100%;}
+.w-75 {width:75%;}
+.h-75 {height:75%;}
+.w-50 {width:50%;}
+.h-50 {height:50%;}
+.w-25 {width:25%;}
+.h-25 {height:25%;}
+.mid {margin:auto;}
+.mid-x {margin-left:auto;margin-right:auto;}
+.mid-y {margin-top:auto;margin-bottom:auto;}
+.mt-auto {margin-top:auto;}
+.mr-auto {margin-right:auto;}
+.mb-auto {margin-bottom:auto;}
+.ml-auto {margin-left:auto;}
+.txt-normal {font-style:normal;font-weight:normal;}
+.txt-italic {font-style:italic;}
+.font-thin { font-weight:100;}
+.font-light { font-weight:300;}
+.font-regular { font-weight:400;}
+.font-medium { font-weight:500;}
+.font-bold { font-weight:700;}
+.font-black { font-weight:900;}
+.ver-t {vertical-align:top;}
+.ver-m {vertical-align:middle;}
+.ver-b {vertical-align:bottom;}
+.ver-i {vertical-align:initial;}
+.pos-rel {position:relative;}
+.pos-abs {position:absolute;}
+.pos-fix {position:fixed;}
+.pos-sta {position:static;}
+.fix-t {top:0;left:0;right:0;}
+.fix-r {top:0;right:0;bottom:0;}
+.fix-l {top:0;left:0;bottom:0;}
+.fix-b {left:0;right:0;bottom:0;}
+.abs-t {top:0;left:auto;right:auto;}
+.abs-r {top:auto;right:0;bottom:auto;}
+.abs-l {top:auto;left:0;bottom:auto;}
+.abs-b {left:auto;right:auto;bottom:0;}
+.flex-c {align-items:center;justify-content:center;}
+.flex-t {align-items:flex-start;}
+.flex-b {align-items:flex-end;}
+.flex-l {justify-content:flex-start;}
+.flex-r {justify-content:flex-end;}
+.flex-bet {justify-content:space-between;}
+.flex-aro {justify-content:space-around;}
+.flex-1 {flex:1 1 auto;}
+.flex-row {flex-direction:row;}
+.flex-col {flex-direction:column;}
+.round-t {border-radius:3px 3px 0 0;}
+.round-l {border-radius:3px 0 0 3px;}
+.round-r {border-radius:0 3px 3px 0;}
+.round-b {border-radius:0 0 3px 3px;}
+.round {border-radius:3px 3px 3px 3px;}
+.cursor-p {cursor:pointer;}
+.cursor-d {cursor:default;}
+.tb-fixed { table-layout:fixed;}
+.tb-auto { table-layout:auto;}

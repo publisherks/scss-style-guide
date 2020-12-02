@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+// :root {
+//     --main-color               : #4971ff;
+//     --main-color-alpha2        : rgba(73, 113, 255, 0.2);
+//     --main-color-active        : #2f438d;
+//     --sub-btn1-color           : #733dec;
+//     --sub-btn1-color-active    : #442984;
+//     --sub-btn2-color           : #c045e3;
+//     --sub-btn2-color-active    : #6b2d7f;
+//     --sub-btn3-color           : #9d98a4;
+//     --sub-btn3-color-active    : #9d98a4;
+//     --btn-shadow               : 0 0 0 0.64;
+//     --btn-disable-color        : #322d3a;
+//     --gray-color               : #6a6571;
+//     --gray-color-active        : #6a6571;
+//     --red-color                : #f43827;
+//     --red-color-active         : #f43827;
+//     --bg-color                 : #15141b;
+//     --content-bg-color         : #231f29;
+//     --content-bg-color-alpha5  : rgba(35, 31, 41, 0.5);
+//     --text-color1              : #ffffff;
+//     --text-color1-alpha7       : rgba(255, 255, 255, 0.7);
+//     --text-color1-alpha3       : rgba(255, 255, 255, 0.3);
+//     --text-color2              : #d0cdd5;
+//     --text-color3              : #9d98a4;
+//     --text-disable-color       : #6a6571;
+//     --table-th-color           : #342f3a;
+//     --border-color             : #484251;
+//     --border-color-alpha5      : rgba(72, 66, 81, 0.5);
+// }
+
+$colors-default: (
+    main-color : #4971ff,
+    main-color-active : #2f438d,
+    sub-btn1-color : #733dec,
+    sub-btn1-color-active : #442984,
+    sub-btn2-color : #c045e3,
+    sub-btn2-color-active : #6b2d7f,
+    sub-btn3-color : #9d98a4,
+    sub-btn3-color-active : #9d98a4,
+    btn-shadow : rgba(0, 0, 0, 0.64),
+    btn-disable-color : #322d3a,
+    gray-color : #6a6571,
+    gray-color-active : #6a6571,
+    red-color : #f43827,
+    red-color-active : #f43827,
+    bg-color : #15141b,
+    content-bg-color : #231f29,
+    text-color1 : #ffffff,
+    text-color2 : #d0cdd5,
+    text-color3 : #9d98a4,
+    text-disable-color : #6a6571,
+    table-th-color : #342f3a,
+    border-color : #484251,
+    box-shadow : #000000,
+);
+
+@function hexToRGB($hex) {
+    @return red($hex),green($hex),blue($hex);
+}
+
+@mixin generate_colors($colors) {
+
+    // Colors
+    @each $color, $value in $colors {
+        @if str-slice(#{$value}, 1, 1)=="#" {
+            --#{$color}: #{$value};
+        }
+
+        @else if str-slice(#{$value}, 1, 4)=="rgba" {
+            --#{$color}: #{$value};
+        }
+
+        @else {
+            --#{$color}: var(--#{$value});
+        }
+    }
+
+    // RGB Colors
+    @each $color, $value in $colors {
+        @if str-slice(#{$value}, 1, 1)=="#" {
+            --RGB-#{$color}: #{hexToRGB($value)};
+        }
+
+        @else if str-slice(#{$value}, 1, 4)=="rgba" {
+            --RGB-#{$color}: #{$value};
+        }
+
+        @else {
+            --RGB-#{$color}: var(--RGB-#{$value});
+        }
+    }
+}
+
+[data-theme="default"] {
+    @include generate_colors($colors-default);
+}
+
+// [data-theme="light"] {
+//     @include generate_colors($colors-light);
+// }
+
+
+// scss theme setting
+// $themes: (
+//     dark: (
+//         main-color : #4971ff,
+//     ),
+// );
+
+
+// body.#{$theme} => body.dark or body.light ...
+// @mixin themify($themes) {
+
+//     @each $theme, $map in $themes {
+
+//         body.#{$theme} & {
+//             $theme-map: () !global;
+
+//             @each $key, $submap in $map {
+//                 $value: map-get(map-get($themes, $theme), '#{$key}');
+//                 $theme-map: map-merge($theme-map, ($key: $value)) !global;
+//             }
+
+//             @content;
+//             $theme-map: null !global;
+//         }
+//     }
+// };
+
+// 실제 사용 법
+// p {
+//     @include themify($themes) {
+//         color: themed('main-color');
+//     }
+// }
+// 빌드 시 => body.dark p { color: theme-color; }
+// @function themed($key) {
+//     @return map-get($theme-map, $key);
+// };
